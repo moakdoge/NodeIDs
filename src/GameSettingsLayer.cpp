@@ -155,12 +155,6 @@ $register_ids(GameSettingsLayer) {
 }
 
 struct GameSettingsLayerIDs : Modify<GameSettingsLayerIDs, GameSettingsLayer> {
-    static void onModify(auto& self) {
-        if (!self.setHookPriority("GameSettingsLayer::init", GEODE_ID_PRIORITY)) {
-            log::warn("Failed to set GameSettingsLayer::init hook priority, node IDs may not work properly");
-        }
-    }
-
     void buildTabContent() {
         auto winSize = CCDirector::get()->getWinSize();
         auto holder = CCNode::create();
@@ -170,14 +164,6 @@ struct GameSettingsLayerIDs : Modify<GameSettingsLayerIDs, GameSettingsLayer> {
         holder->setContentSize({400, 240});
         m_mainLayer->addChild(holder);
         GameSettingsLayer::buildTabContent();
-    }
-
-    bool init(GJBaseGameLayer* bgl, int probPage) {
-        if (!GameSettingsLayer::init(bgl, probPage)) return false;
-
-        NodeIDs::get()->provide(this);
-
-        return true;
     }
 
     void addToggle(char const* name, int id, char const* desc, bool disabled) {

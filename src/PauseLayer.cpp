@@ -32,38 +32,24 @@ $register_ids(PauseLayer) {
             idx += 1;
         }
         else {
-            if (GameManager::get()->getGameVariable(GameVar::LegacyPauseProgress)) {
+            setIDs(
+                layer,
+                idx,
+                "progress-bar",
+                "progress-label",
+                "mode-label"
+            );
+            if (auto prog = layer->getChildByID("progress-bar")) {
                 setIDs(
-                    layer,
-                    idx,
-                    "normal-progress-bar",
-                    "practice-progress-bar",
-                    "normal-progress-label",
-                    "practice-progress-label",
-                    "normal-mode-label",
-                    "practice-mode-label"
+                    prog,
+                    0,
+                    "best-bar",
+                    "current-bar"
                 );
-                idx += 6;
-            } else {
-                setIDs(
-                    layer,
-                    idx,
-                    "progress-bar",
-                    "progress-label",
-                    "mode-label"
-                );
-                if (auto prog = layer->getChildByID("progress-bar")) {
-                    setIDs(
-                        prog,
-                        0,
-                        "best-bar",
-                        "current-bar"
-                    );
-                }
-                idx += 3;
-                if ((practice && level->m_practicePercent) || (!practice && level->m_normalPercent)) {
-                    setIDSafe(layer, idx++, "best-label");
-                }
+            }
+            idx += 3;
+            if ((practice && level->m_practicePercent) || (!practice && level->m_normalPercent)) {
+                setIDSafe(layer, idx++, "best-label");
             }
 
             setIDSafe(layer, idx++, "center-button-menu");

@@ -43,7 +43,10 @@ $register_ids(ProfilePage) {
         m_buttonMenu->getChildByType<CCMenuItemSpriteExtra>(buttonOffset)->setID("follow-button");
         buttonOffset++;
 
-        if(!GameLevelManager::sharedState()->isFollowingUser(m_accountID)) {
+        auto followedCreators = GameLevelManager::sharedState()->m_followedCreators;
+        if (!followedCreators || !followedCreators->objectForKey(
+            CCString::createWithFormat("%i", m_accountID)->getCString()
+        )) {
             m_mainLayer->getChildByType<CCSprite>(spriteOffset)->setID("follow-hint");
             spriteOffset++;
         }

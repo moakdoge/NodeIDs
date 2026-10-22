@@ -73,19 +73,3 @@ $register_ids(MoreOptionsLayer) {
         if(child->getID() == lastLayer) break;
     }
 }
-
-struct MoreOptionsLayerIDs : Modify<MoreOptionsLayerIDs, MoreOptionsLayer> {
-    static void onModify(auto& self) {
-        if (!self.setHookPriority("MoreOptionsLayer::init", GEODE_ID_PRIORITY)) {
-            log::warn("Failed to set MoreOptionsLayer::init hook priority, node IDs may not work properly");
-        }
-    }
-
-    bool init() {
-        if (!MoreOptionsLayer::init()) return false;
-
-        NodeIDs::get()->provide(this);
-
-        return true;
-    }
-};
