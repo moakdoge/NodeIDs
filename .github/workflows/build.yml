@@ -42,7 +42,7 @@ jobs:
           combine: true
           target: ${{ matrix.config.target }}
           sdk: nightly
-          bindings-ref: v6-remove-gd-namespace
+          bindings-ref: main
       
   package:
     name: Package builds
